@@ -1,3 +1,7 @@
-﻿class App {
-    
+﻿
+class App {
+
+    LoadNodes() {
+        
+    }
 }
