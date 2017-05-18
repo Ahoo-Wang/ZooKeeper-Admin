@@ -17,6 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot/js\App.js" />
+    <Content Remove="wwwroot/js\App.js.map" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\js\App.ts" />
     <Content Include="wwwroot\js\tsconfig.json" />
   </ItemGroup>
@@ -38,6 +43,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\typings\" />
   </ItemGroup>
 
