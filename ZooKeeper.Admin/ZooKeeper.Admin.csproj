@@ -19,13 +19,14 @@
   <ItemGroup>
     <Content Remove="wwwroot/js\App.js" />
     <Content Remove="wwwroot/js\App.js.map" />
+    <Content Remove="wwwroot/scripts\App.ts~RF1bbdc577.TMP" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\js\App.ts" />
-    <Content Include="wwwroot\js\tsconfig.json" />
     <Content Include="wwwroot\scripts\App.ts" />
     <Content Include="wwwroot\scripts\tsconfig.json" />
+    <Content Include="wwwroot\scripts\typings\jquery\jquery.d.ts" />
+    <Content Include="wwwroot\scripts\typings\jquery\jquerystatic.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
