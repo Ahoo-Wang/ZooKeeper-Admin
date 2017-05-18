@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "Manager";
+}
+<div id="app">
+    <div class="panel panel-info">
+        <form class="form-inline">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="ZooKeeper Hosts">
+                <span class="input-group-btn">
+                    <a class="btn btn-default">Connect!</a>
+                </span>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-5">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">ZNodes</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="zNodes" class="treeview"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">NodeState</h3>
+                </div>
+                <div class="panel-body"></div>
+            </div>
+        </div>
+        <div class="col-lg-4  col-md-4 col-sm-4">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <h3 class="panel-title">Op</h3>
+                    </div>
+                </div>
+                <div class="panel-body"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        var zNodeData = [
+            {
+                text: 'Parent 1',
+                href: '#parent1',
+                tags: ['4'],
+                nodes: [
+                    {
+                        text: 'Child 1',
+                        href: '#child1',
+                        tags: ['2'],
+                        nodes: [
+                            {
+                                text: 'Grandchild 1',
+                                href: '#grandchild1',
+                                tags: ['0']
+                            },
+                            {
+                                text: 'Grandchild 2',
+                                href: '#grandchild2',
+                                tags: ['0']
+                            }
+                        ]
+                    },
+                    {
+                        text: 'Child 2',
+                        href: '#child2',
+                        tags: ['0']
+                    }
+                ]
+            },
+            {
+                text: 'Parent 2',
+                href: '#parent2',
+                tags: ['0']
+            },
+            {
+                text: 'Parent 3',
+                href: '#parent3',
+                tags: ['0']
+            },
+            {
+                text: 'Parent 4',
+                href: '#parent4',
+                tags: ['0']
+            },
+            {
+                text: 'Parent 5',
+                href: '#parent5',
+                tags: ['0']
+            }
+        ];
+
+        var $zNodesTree = $('#zNodes').treeview({
+            data: zNodeData,
+            level: 99
+        });
+
+
+
+
+    </script>
+
+}

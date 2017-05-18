@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  zookeeper.admin:
+    image: zookeeper.admin
+    build:
+      context: ./ZooKeeper.Admin
+      dockerfile: Dockerfile
