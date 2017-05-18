@@ -6,7 +6,7 @@
     <div class="panel panel-info">
         <form class="form-inline">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="ZooKeeper Hosts">
+                <input type="text" class="form-control" placeholder="ZooKeeper Hosts" value="192.168.1.5:2181" id="zookeeper_host">
                 <span class="input-group-btn">
                     <a class="btn btn-default">Connect!</a>
                 </span>
@@ -51,9 +51,10 @@
             function App() {
             }
             App.prototype.LoadNodes = function () {
+                var zHost = $('#zookeeper_host').val();
                 var reqMsg = {
                     "header": {
-                        "connectString": "192.168.31.103:2181"
+                        "connectString": zHost
                     },
                     "body": {
                         "parentPath": "/"

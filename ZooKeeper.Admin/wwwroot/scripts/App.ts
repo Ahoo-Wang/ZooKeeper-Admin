@@ -1,5 +1,6 @@
 ﻿
 class App {
+    constructor() { }
 
     LoadNodes() {
         

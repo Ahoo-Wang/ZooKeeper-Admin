@@ -91,6 +91,9 @@ namespace ZooKeeper.Admin.Controllers
                         childNode.Path = node.Path + child;
                     }
                     await LoadNode(zk, childNode);
+                    if (node.Nodes == null) {
+                        node.Nodes = new List<Node>();
+                    }
                     node.Nodes.Add(childNode);
                 }
             }

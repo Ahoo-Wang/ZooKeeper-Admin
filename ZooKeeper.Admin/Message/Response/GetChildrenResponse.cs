@@ -13,7 +13,7 @@ namespace ZooKeeper.Admin.Message.Response
     public class Node {
         public String Path { get; set; }
         public String Text { get; set; }
-        public IList<Node> Nodes { get; set; } = new List<Node>();
+        public IList<Node> Nodes { get; set; } 
         public NodeState NodeState { get; set; }
     }
 }

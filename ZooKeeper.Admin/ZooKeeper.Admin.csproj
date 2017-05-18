@@ -24,6 +24,8 @@
   <ItemGroup>
     <Content Include="wwwroot\js\App.ts" />
     <Content Include="wwwroot\js\tsconfig.json" />
+    <Content Include="wwwroot\scripts\App.ts" />
+    <Content Include="wwwroot\scripts\tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
@@ -44,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
-    <Folder Include="wwwroot\typings\" />
   </ItemGroup>
 
 </Project>
