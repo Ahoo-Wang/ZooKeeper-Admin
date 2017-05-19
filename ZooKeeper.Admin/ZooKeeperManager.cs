@@ -14,15 +14,26 @@ namespace ZooKeeper.Admin
 
         public Dictionary<String, org.apache.zookeeper.ZooKeeper> MappedZooKeepers { get; set; } = new Dictionary<string, org.apache.zookeeper.ZooKeeper>();
 
-        public org.apache.zookeeper.ZooKeeper Get(String connStr)
+        public async Task<org.apache.zookeeper.ZooKeeper> Get(String connStr)
         {
+            org.apache.zookeeper.ZooKeeper zk = null;
             bool isExists = MappedZooKeepers.ContainsKey(connStr);
             if (isExists)
             {
-                return MappedZooKeepers[connStr];
+                zk = MappedZooKeepers[connStr];
+                var zkState = zk.getState();
+                if (zkState == org.apache.zookeeper.ZooKeeper.States.CLOSED
+                    ||
+                    zkState == org.apache.zookeeper.ZooKeeper.States.NOT_CONNECTED
+                    )
+                {
+                    await Remove(connStr);
+                    zk = new org.apache.zookeeper.ZooKeeper(connStr, sessionTimeout, NoneWatcher.Instance);
+                    MappedZooKeepers.Add(connStr, zk);
+                }
+                return zk;
             }
-
-            var zk = new org.apache.zookeeper.ZooKeeper(connStr, sessionTimeout, NoneWatcher.Instance);
+            zk = new org.apache.zookeeper.ZooKeeper(connStr, sessionTimeout, NoneWatcher.Instance);
             MappedZooKeepers.Add(connStr, zk);
             return zk;
         }

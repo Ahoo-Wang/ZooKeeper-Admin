@@ -5,10 +5,11 @@ var App = (function () {
     }
     App.prototype.Init = function () {
         var that = this;
+        var connStr = localStorage.getItem("ConnString");
         this.vmApp = new Vue({
             el: '#app',
             data: {
-                zooKeeperHost: '192.168.31.103:2181',
+                zooKeeperHost: connStr,
                 zNodes: [],
                 currentNode: {},
                 opData: { data: '' }
@@ -20,7 +21,7 @@ var App = (function () {
             },
             methods: {
                 RefreshNodes: function () {
-                    that.RefreshNodes();
+                    that.Connect();
                 },
                 Connect: function () {
                     that.RefreshNodes();
@@ -40,6 +41,10 @@ var App = (function () {
             }
         });
     };
+    App.prototype.Connect = function () {
+        localStorage.setItem('ConnString', this.vmApp.$data.zooKeeperHost);
+        this.RefreshNodes();
+    };
     App.prototype.DisConnect = function () {
         var that = this;
         that.Api('DisConnect', {}, function () {
@@ -56,19 +61,19 @@ var App = (function () {
     App.prototype.Delete = function () {
         var that = this;
         that.Api('Delete', { path: that.vmApp.$data.currentNode.path }, function () {
-            that.RefreshNodes();
+            setTimeout(function () { that.RefreshNodes(); }, 500);
         });
     };
     App.prototype.Set = function () {
         var that = this;
         that.Api('Set', that.vmApp.$data.opData, function () {
-            that.RefreshNodes();
+            setTimeout(function () { that.RefreshNodes(); }, 500);
         });
     };
     App.prototype.Create = function () {
         var that = this;
         that.Api('Create', that.vmApp.$data.opData, function () {
-            that.RefreshNodes();
+            setTimeout(function () { that.RefreshNodes(); }, 500);
         });
     };
     App.prototype.RefreshNodes = function () {
@@ -77,7 +82,7 @@ var App = (function () {
         var reqBody = {
             "parentPath": "/"
         };
-        this.Api('GetChildren', reqBody, function (resp) {
+        that.Api('GetChildren', reqBody, function (resp) {
             if (!that.isInit) {
                 $('#zNodes').treeview('remove');
             }
