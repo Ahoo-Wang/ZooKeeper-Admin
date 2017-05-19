@@ -3,4 +3,4 @@ ZooKeeper 管理工具
 
 
 ## Demo
-![ZooKeeper-Admin](https://static.ahoo.me/ZooKeeper-Admin.png)
+![ZooKeeper-Admin](http://dn-ahoo.qbox.me/ZooKeeper-Admin.png)
