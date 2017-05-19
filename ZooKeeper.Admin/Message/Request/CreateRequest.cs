@@ -31,7 +31,8 @@ namespace ZooKeeper.Admin.Message.Request
                         {
                             return Ids.READ_ACL_UNSAFE;
                         }
-                    default: {
+                    default:
+                        {
                             throw new ArgumentException("ACL is not ok.");
                         }
                 }
@@ -73,15 +74,15 @@ namespace ZooKeeper.Admin.Message.Request
 
     public enum ACL
     {
-        OPEN_ACL_UNSAFE,
-        CREATOR_ALL_ACL,
-        READ_ACL_UNSAFE
+        OPEN_ACL_UNSAFE = 1,
+        CREATOR_ALL_ACL = 2,
+        READ_ACL_UNSAFE = 3
     }
     public enum CreateMode
     {
-        PERSISTENT,
-        PERSISTENT_SEQUENTIAL,
-        EPHEMERAL,
-        EPHEMERAL_SEQUENTIAL,
+        PERSISTENT = 1,
+        PERSISTENT_SEQUENTIAL = 2,
+        EPHEMERAL = 3,
+        EPHEMERAL_SEQUENTIAL = 4,
     }
 }

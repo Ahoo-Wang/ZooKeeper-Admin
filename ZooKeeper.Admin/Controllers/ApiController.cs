@@ -37,6 +37,7 @@ namespace ZooKeeper.Admin.Controllers
         public async Task<ResponseMessage<GetResponse>> Get([FromBody]RequestMessage<GetRequest> reqMsg)
         {
             var zk = zkManager.Get(reqMsg.Header.ConnectString);
+            WaitConnect(zk);
             var result = await zk.getDataAsync(reqMsg.Body.Path);
             return new ResponseMessage<GetResponse>
             {
@@ -52,6 +53,7 @@ namespace ZooKeeper.Admin.Controllers
         public async Task<ResponseMessage<GetChildrenResponse>> GetChildren([FromBody]RequestMessage<GetChildrenRequest> reqMsg)
         {
             var zk = zkManager.Get(reqMsg.Header.ConnectString);
+            WaitConnect(zk);
             Node rootNode = new Node
             {
                 Path = reqMsg.Body.ParentPath,
@@ -91,7 +93,8 @@ namespace ZooKeeper.Admin.Controllers
                         childNode.Path = node.Path + child;
                     }
                     await LoadNode(zk, childNode);
-                    if (node.Nodes == null) {
+                    if (node.Nodes == null)
+                    {
                         node.Nodes = new List<Node>();
                     }
                     node.Nodes.Add(childNode);
@@ -103,7 +106,12 @@ namespace ZooKeeper.Admin.Controllers
         public async Task<ResponseMessage<String>> Create([FromBody]RequestMessage<CreateRequest> reqMsg)
         {
             var zk = zkManager.Get(reqMsg.Header.ConnectString);
-            var data = Encoding.UTF8.GetBytes(reqMsg.Body.Data);
+            WaitConnect(zk);
+            byte[] data = null;
+            if (!String.IsNullOrEmpty(reqMsg.Body.Data))
+            {
+                data = Encoding.UTF8.GetBytes(reqMsg.Body.Data);
+            }
 
             var result = await zk.createAsync(reqMsg.Body.Path, data, reqMsg.Body.ZACL, reqMsg.Body.ZCreateMode);
             return new ResponseMessage<string>
@@ -115,6 +123,7 @@ namespace ZooKeeper.Admin.Controllers
         public async Task<ResponseMessage<ExecResponse>> Set([FromBody]RequestMessage<SetRequest> reqMsg)
         {
             var zk = zkManager.Get(reqMsg.Header.ConnectString);
+            WaitConnect(zk);
             var data = Encoding.UTF8.GetBytes(reqMsg.Body.Data);
             var state = await zk.setDataAsync(reqMsg.Body.Path, data);
 
@@ -131,10 +140,20 @@ namespace ZooKeeper.Admin.Controllers
         public async Task<ResponseMessage> Delete([FromBody]RequestMessage<DeleteRequest> reqMsg)
         {
             var zk = zkManager.Get(reqMsg.Header.ConnectString);
+            WaitConnect(zk);
             await zk.deleteAsync(reqMsg.Body.Path);
 
             return new ResponseMessage { };
         }
+
+        private void WaitConnect(org.apache.zookeeper.ZooKeeper zk)
+        {
+            while (zk.getState() != org.apache.zookeeper.ZooKeeper.States.CONNECTED)
+            {
+
+            }
+        }
+
         #endregion
 
         protected override void Dispose(bool disposing)

@@ -4,20 +4,26 @@
 <br />
 <div id="app">
     <div class="panel panel-info">
-        <form class="form-inline">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="ZooKeeper Hosts" value="192.168.1.5:2181" id="zookeeper_host">
-                <span class="input-group-btn">
-                    <a class="btn btn-default">Connect!</a>
-                </span>
-            </div>
-        </form>
+        <div class="panel-body">
+            <form class="form-inline">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="ZooKeeper Hosts" v-model="zooKeeperHost" id="zookeeper_host">
+                    <span class="input-group-btn">
+                        <a class="btn btn-primary" v-on:click="Connect">Connect!</a>
+                        <a class="btn btn-danger" v-on:click="DisConnect">DisConnect!</a>
+                    </span>
+                </div>
+            </form>
+        </div>
     </div>
     <div class="row">
         <div class="col-lg-5 col-md-5 col-sm-5">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title">ZNodes</h3>
+                    <h3 class="panel-title">
+                        ZNodes
+                        <i class="pull-right glyphicon  glyphicon-refresh" v-on:click="RefreshNodes"></i>
+                    </h3>
                 </div>
                 <div class="panel-body">
                     <div id="zNodes" class="treeview"></div>
@@ -29,7 +35,11 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">NodeState</h3>
                 </div>
-                <div class="panel-body"></div>
+                <div class="panel-body">
+                    <code>
+                        {{currentNode.nodeState}}
+                    </code>
+                </div>
             </div>
         </div>
         <div class="col-lg-4  col-md-4 col-sm-4">
@@ -39,47 +49,63 @@
                         <h3 class="panel-title">Op</h3>
                     </div>
                 </div>
-                <div class="panel-body"></div>
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="Path" class="col-sm-3 control-label">Path</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="Path" placeholder="Path" v-model="opData.path">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Data" class="col-sm-3 control-label">Data</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" placeholder="Node Data" id="Data" rows="10" v-model="opData.data"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ACL" class="col-sm-3 control-label">ACL</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="ACL" placeholder="ACL" v-model="opData.acl">
+                                    <option value="1">OPEN_ACL_UNSAFE</option>
+                                    <option value="2">CREATOR_ALL_ACL</option>
+                                    <option value="3">READ_ACL_UNSAFE</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="CreateMode" class="col-sm-3 control-label">CreateMode</label>
+                            <div class="col-sm-9">
+                                <select type="text" class="form-control" id="CreateMode" placeholder="CreateMode" v-model="opData.createMode">
+                                    <option value="1">PERSISTENT</option>
+                                    <option value="2">PERSISTENT_SEQUENTIAL</option>
+                                    <option value="3">EPHEMERAL</option>
+                                    <option value="4">EPHEMERAL_SEQUENTIAL</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <a class="btn btn-default btn-block" v-on:click="Create">Create</a>
+                            </div>
+                            <div class="col-sm-4">
+                                <a class="btn btn-warning btn-block" v-on:click="Set">Set</a>
+                            </div>
+                            <div class="col-sm-4">
+                                <a class="btn btn-danger btn-block" v-on:click="Delete">Delete</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 @section Scripts{
+    <script src="~/js/App.js"></script>
     <script>
-        var App = (function () {
-            function App() {
-            }
-            App.prototype.LoadNodes = function () {
-                var zHost = $('#zookeeper_host').val();
-                var reqMsg = {
-                    "header": {
-                        "connectString": zHost
-                    },
-                    "body": {
-                        "parentPath": "/"
-                    }
-                };
-                $.ajax({
-                    url: '/Api/GetChildren',
-                    type: 'POST',
-                    contentType: 'application/json; charset=utf-8',
-                    traditional: true,
-                    data: JSON.stringify(reqMsg),
-                    success: function (resp) { 
-                        var $zNodesTree = $('#zNodes').treeview({
-                            data: resp.body.children,
-                            level: 99
-                        });
-
-                    }
-                });
-
-            };
-            return App;
-        }());
         var app = new App();
-        app.LoadNodes();
     </script>
 
 }

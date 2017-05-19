@@ -48,5 +48,6 @@
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties wwwroot_4scripts_4typings_4vue_4typings_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>
