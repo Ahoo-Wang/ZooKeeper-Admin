@@ -27,6 +27,9 @@
     <Content Include="wwwroot\scripts\tsconfig.json" />
     <Content Include="wwwroot\scripts\typings\jquery\jquery.d.ts" />
     <Content Include="wwwroot\scripts\typings\jquery\jquerystatic.d.ts" />
+    <Content Include="wwwroot\scripts\typings\vue.ts" />
+    <Content Include="wwwroot\scripts\typings\vue\vue.d.ts" />
+    <Content Include="wwwroot\scripts\typings\vue\vue.ts" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
@@ -48,6 +51,6 @@
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
-  <ProjectExtensions><VisualStudio><UserProperties wwwroot_4scripts_4typings_4vue_4typings_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>
