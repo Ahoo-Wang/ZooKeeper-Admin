@@ -13,7 +13,7 @@
                 zooKeeperHost: '192.168.31.103:2181',
                 zNodes: [],
                 currentNode: {},
-                opData: {}
+                opData: {data:''}
             },
             mounted: function () {
                 this.$nextTick(function () {
@@ -53,8 +53,8 @@
 
     Get() {
         let that = this;
-        that.Api('Get', that.vmApp.$data.opData, function () {
-            
+        that.Api('Get', that.vmApp.$data.opData, function (resp) {
+            that.vmApp.$data.opData.data = resp.body.data;
         });
     }
     Delete() {
@@ -94,7 +94,8 @@
             that.isInit = false;
             $('#zNodes').on('nodeSelected', function (event, data) {
                 that.vmApp.$data.currentNode = data;
-
+                that.vmApp.$data.opData.path = data.path;
+                that.Get();
             });
         });
     }
