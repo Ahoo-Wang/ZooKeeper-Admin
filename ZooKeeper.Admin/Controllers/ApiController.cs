@@ -43,7 +43,7 @@ namespace ZooKeeper.Admin.Controllers
             {
                 Body = new GetResponse
                 {
-                    Data = UTF8Encoding.UTF8.GetString(result.Data),
+                    Data = result.Data == null ? "" : UTF8Encoding.UTF8.GetString(result.Data),
                     NodeState = NodeState.Build(result.Stat)
                 }
             };
