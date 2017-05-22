@@ -17,12 +17,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot/js\App.js" />
     <Content Remove="wwwroot/js\App.js.map" />
     <Content Remove="wwwroot/scripts\App.ts~RF1bbdc577.TMP" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\js\App.js" />
     <Content Include="wwwroot\scripts\App.ts" />
     <Content Include="wwwroot\scripts\tsconfig.json" />
     <Content Include="wwwroot\scripts\typings\jquery\jquery.d.ts" />
