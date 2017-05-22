@@ -7,13 +7,14 @@
     }
     Init() {
         let that = this;
+        let connStr = localStorage.getItem("ConnString");
         this.vmApp = new Vue({
             el: '#app',
             data: {
-                zooKeeperHost: '192.168.31.103:2181',
+                zooKeeperHost: connStr,
                 zNodes: [],
                 currentNode: {},
-                opData: {data:''}
+                opData: { data: '' }
             },
             mounted: function () {
                 this.$nextTick(function () {
@@ -22,7 +23,7 @@
             },
             methods: {
                 RefreshNodes: function () {
-                    that.RefreshNodes();
+                    that.Connect();
                 },
                 Connect: function () {
                     that.RefreshNodes();
@@ -42,7 +43,11 @@
             }
         });
     }
+    Connect() {
+        localStorage.setItem('ConnString', this.vmApp.$data.zooKeeperHost);
+        this.RefreshNodes();
 
+    }
     DisConnect() {
         let that = this;
         that.Api('DisConnect', {}, function () {
@@ -60,21 +65,22 @@
     Delete() {
         let that = this;
         that.Api('Delete', { path: that.vmApp.$data.currentNode.path }, function () {
-            that.RefreshNodes();
+            setTimeout(() => { that.RefreshNodes(); }, 500);
         });
     }
 
     Set() {
         let that = this;
         that.Api('Set', that.vmApp.$data.opData, function () {
-            that.RefreshNodes();
+            setTimeout(() => { that.RefreshNodes(); }, 500);
         });
     }
 
     Create() {
         let that = this;
         that.Api('Create', that.vmApp.$data.opData, function () {
-            that.RefreshNodes();
+            setTimeout(() => { that.RefreshNodes(); }, 500);
+            
         });
     }
     RefreshNodes() {
@@ -83,7 +89,7 @@
         var reqBody = {
             "parentPath": "/"
         };
-        this.Api('GetChildren', reqBody, function (resp) {
+        that.Api('GetChildren', reqBody, function (resp) {
             if (!that.isInit) {
                 $('#zNodes').treeview('remove');
             }
@@ -98,6 +104,7 @@
                 that.Get();
             });
         });
+
     }
     Api(action, reqBody, success) {
         let that = this;
