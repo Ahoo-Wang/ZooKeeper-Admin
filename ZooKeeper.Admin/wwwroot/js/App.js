@@ -61,19 +61,19 @@ var App = (function () {
     App.prototype.Delete = function () {
         var that = this;
         that.Api('Delete', { path: that.vmApp.$data.currentNode.path }, function () {
-            setTimeout(function () { that.RefreshNodes(); }, 500);
+            setTimeout(function () { that.RefreshNodes(); }, 3000);
         });
     };
     App.prototype.Set = function () {
         var that = this;
         that.Api('Set', that.vmApp.$data.opData, function () {
-            setTimeout(function () { that.RefreshNodes(); }, 500);
+            setTimeout(function () { that.RefreshNodes(); }, 3000);
         });
     };
     App.prototype.Create = function () {
         var that = this;
         that.Api('Create', that.vmApp.$data.opData, function () {
-            setTimeout(function () { that.RefreshNodes(); }, 500);
+            setTimeout(function () { that.RefreshNodes(); }, 3000);
         });
     };
     App.prototype.RefreshNodes = function () {

@@ -65,21 +65,21 @@
     Delete() {
         let that = this;
         that.Api('Delete', { path: that.vmApp.$data.currentNode.path }, function () {
-            setTimeout(() => { that.RefreshNodes(); }, 500);
+            setTimeout(() => { that.RefreshNodes(); }, 3000);
         });
     }
 
     Set() {
         let that = this;
         that.Api('Set', that.vmApp.$data.opData, function () {
-            setTimeout(() => { that.RefreshNodes(); }, 500);
+            setTimeout(() => { that.RefreshNodes(); }, 3000);
         });
     }
 
     Create() {
         let that = this;
         that.Api('Create', that.vmApp.$data.opData, function () {
-            setTimeout(() => { that.RefreshNodes(); }, 500);
+            setTimeout(() => { that.RefreshNodes(); }, 3000);
             
         });
     }

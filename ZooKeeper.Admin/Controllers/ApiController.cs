@@ -138,6 +138,7 @@ namespace ZooKeeper.Admin.Controllers
                     {
                         childNode.Path = node.Path + child;
                     }
+                    
                     await LoadNode(zk, childNode);
                     if (node.Nodes == null)
                     {
