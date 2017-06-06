@@ -50,7 +50,7 @@ namespace ZooKeeper.Admin.Controllers
             };
         }
 
-        public async void ReTry(string connStr, Action<org.apache.zookeeper.ZooKeeper> run, int maxReTries = 5, int sleep = 100)
+        private async void ReTry(string connStr, Action<org.apache.zookeeper.ZooKeeper> run, int maxReTries = 5, int sleep = 100)
         {
             int retries = 1;
             while (true)
