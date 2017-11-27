@@ -204,7 +204,7 @@ namespace ZooKeeper.Admin.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            zkManager.Dispose();
+            //zkManager.Dispose();
             base.Dispose(disposing);
         }
     }

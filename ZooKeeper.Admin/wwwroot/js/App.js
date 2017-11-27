@@ -60,19 +60,19 @@ var App = (function () {
     };
     App.prototype.Delete = function () {
         var that = this;
-        that.Api('Delete', { path: that.vmApp.$data.currentNode.path }, function () {
+        that.Api('Delete', { path: that.vmApp.$data.currentNode.path }, function (resp) {
             setTimeout(function () { that.RefreshNodes(); }, 3000);
         });
     };
     App.prototype.Set = function () {
         var that = this;
-        that.Api('Set', that.vmApp.$data.opData, function () {
+        that.Api('Set', that.vmApp.$data.opData, function (resp) {
             setTimeout(function () { that.RefreshNodes(); }, 3000);
         });
     };
     App.prototype.Create = function () {
         var that = this;
-        that.Api('Create', that.vmApp.$data.opData, function () {
+        that.Api('Create', that.vmApp.$data.opData, function (resp) {
             setTimeout(function () { that.RefreshNodes(); }, 3000);
         });
     };
@@ -112,7 +112,13 @@ var App = (function () {
             contentType: 'application/json; charset=utf-8',
             traditional: true,
             data: JSON.stringify(reqMsg),
-            success: success
+            success: function (resp) {
+                if (!resp.isSuccess) {
+                    alert(resp.message);
+                    return;
+                }
+                success(resp);
+            }
         });
     };
     return App;

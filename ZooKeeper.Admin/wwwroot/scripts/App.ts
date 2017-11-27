@@ -1,4 +1,6 @@
-﻿class App {
+﻿
+
+class App {
     vmApp: vuejs.Vue;
     isInit: boolean;
     constructor() {
@@ -7,6 +9,7 @@
     }
     Init() {
         let that = this;
+
         let connStr = localStorage.getItem("ConnString");
         this.vmApp = new Vue({
             el: '#app',
@@ -64,23 +67,23 @@
     }
     Delete() {
         let that = this;
-        that.Api('Delete', { path: that.vmApp.$data.currentNode.path }, function () {
+        that.Api('Delete', { path: that.vmApp.$data.currentNode.path }, function (resp) {
             setTimeout(() => { that.RefreshNodes(); }, 3000);
         });
     }
 
     Set() {
         let that = this;
-        that.Api('Set', that.vmApp.$data.opData, function () {
+        that.Api('Set', that.vmApp.$data.opData, function (resp) {
             setTimeout(() => { that.RefreshNodes(); }, 3000);
         });
     }
 
     Create() {
         let that = this;
-        that.Api('Create', that.vmApp.$data.opData, function () {
+        that.Api('Create', that.vmApp.$data.opData, function (resp) {
             setTimeout(() => { that.RefreshNodes(); }, 3000);
-            
+
         });
     }
     RefreshNodes() {
@@ -120,7 +123,12 @@
             contentType: 'application/json; charset=utf-8',
             traditional: true,
             data: JSON.stringify(reqMsg),
-            success: success
+            success: function (resp) {
+                if (!resp.isSuccess) {
+                    alert(resp.message); return;
+                }
+                success(resp);
+            }
         });
     }
 }
