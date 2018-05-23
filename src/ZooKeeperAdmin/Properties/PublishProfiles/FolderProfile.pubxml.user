@@ -6,6 +6,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>E:\Ahoo\ZooKeeperAdmin\ZooKeeperAdmin\bin\Release\netcoreapp2.0\publish\</_PublishTargetUrl>
+    <_PublishTargetUrl>E:\Ahoo\ZooKeeper-Admin\src\ZooKeeperAdmin\bin\Release\netcoreapp2.0\publish\</_PublishTargetUrl>
   </PropertyGroup>
 </Project>
