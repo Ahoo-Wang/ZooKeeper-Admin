@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": true,
+    "sourceMap": false,
+    "target": "es3",
+    "outDir": "js",
+    "module": "amd"
+  },
+  "compileOnSave": true,
+  "include": [ "scripts/**/*" ],
+  "exclude": [
+    "node_modules"
+  ]
+}
